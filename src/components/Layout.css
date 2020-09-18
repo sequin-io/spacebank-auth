@@ -1,0 +1,33 @@
+.layout .layout-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 48px 24px 48px;
+}
+
+.layout .layout-content-wrapper {
+  position: relative;
+}
+
+.layout .layout-cloud {
+  height: 144px;
+  width: 100%;
+  background-image: url("../assets/cloud.png");
+  background-size: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.layout .layout-content-box {
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.layout .layout-footer {
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}

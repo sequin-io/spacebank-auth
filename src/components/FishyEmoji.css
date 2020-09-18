@@ -1,0 +1,21 @@
+.fishy-emoji {
+  display: inline-block;
+}
+
+.fishy-emoji.with-open-anim {
+  animation: 500ms ease-in-out 0s 1 normal open-anim;
+}
+
+@keyframes open-anim {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.4);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

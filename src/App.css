@@ -1,0 +1,9 @@
+@import "./antd-custom-theme.css";
+
+body {
+  background-color: var(--accent);
+}
+
+.App {
+  width: 100%;
+}

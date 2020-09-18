@@ -1,0 +1,16 @@
+.header .content {
+  padding: 72px 0px 24px 0px;
+  text-align: center;
+  background: var(--primary);
+}
+
+.header .logo {
+  height: 64px;
+}
+
+.header .cloud {
+  height: 48px;
+  width: 100%;
+  background-image: url("../assets/cloud.png");
+  background-size: contain;
+}
