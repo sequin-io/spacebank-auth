@@ -25,7 +25,7 @@ export default function Transactions() {
   const debouncedSearch = useDebounce(search, 500);
 
   // Stores the current selected row at the table
-  const [selectedRow, setSelectedRow] = useState<ListTransactions[0]>();
+  const [selectedTransactionId, setSelectedTransactionId] = useState<string>();
 
   // Retrieve transactions from database using Decode
   const { data, error } = useDecode<ListTransactions>([
@@ -45,7 +45,7 @@ export default function Transactions() {
   // Marks a transaction as fishy
   const markAsFishy = async () => {
     await fetcher("tagTransaction", {
-      transaction_id: selectedRow!.id,
+      transaction_id: selectedTransactionId,
       body: { name: "fishy" },
     });
   };
@@ -53,14 +53,14 @@ export default function Transactions() {
   // Remove the fishy tag from a transaction
   const clearTags = async () => {
     await fetcher("untagTransaction", {
-      transaction_id: selectedRow!.id,
+      transaction_id: selectedTransactionId,
       name: "fishy",
     });
   };
 
   // Handles the click in the "Clear Tags" and "Mark as Fishy" buttons
   const handleFishyChange = async (operation: () => Promise<void>) => {
-    if (!selectedRow) return;
+    if (!selectedTransactionId) return;
 
     setProcessing(true);
     try {
@@ -85,7 +85,7 @@ export default function Transactions() {
       <SearchInput value={search} onChange={setSearch} />
       <TransactionsTableCard
         processing={processing}
-        disableButtons={!selectedRow}
+        disableButtons={!selectedTransactionId}
         onFishyClick={() => handleFishyChange(markAsFishy)}
         onClearClick={() => handleFishyChange(clearTags)}
         onDateFilterChange={setDateFilter}
@@ -95,7 +95,7 @@ export default function Transactions() {
           dateFilter={dateFilter}
           data={data || []}
           fishyIds={fishyIds.data ? fishyIds.data.ids : []}
-          onSelectRow={(row) => setSelectedRow(row)}
+          onSelectRow={(row) => setSelectedTransactionId(row.id)}
         />
       </TransactionsTableCard>
     </Layout>
