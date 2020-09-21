@@ -8,6 +8,7 @@ import {
   Cell,
   TableProps,
   useRowSelect,
+  useSortBy,
 } from "react-table";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Popover, Button } from "antd";
@@ -80,6 +81,7 @@ export default function Table<D extends object = {}>({
     },
     useFlexLayout,
     useResizeColumns,
+    useSortBy,
     usePagination,
     useRowSelect
   );
@@ -101,13 +103,20 @@ export default function Table<D extends object = {}>({
                 <div {...headerGroup.getHeaderGroupProps()} className="rt-tr">
                   {headerGroup.headers.map((column) => (
                     <div
-                      {...column.getHeaderProps()}
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                       className="rt-th rt-resizable-header -cursor-pointer"
                     >
                       <div className="rt-resizable-header-content">
                         <div>
                           <div className="rt-column-header-name">
                             {column.render("Header")}
+                            <span>
+                              {column.isSorted
+                                ? column.isSortedDesc
+                                  ? " 🔽"
+                                  : " 🔼"
+                                : ""}
+                            </span>
                           </div>
                         </div>
                       </div>
