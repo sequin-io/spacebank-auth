@@ -7,6 +7,10 @@ export interface Transaction {
   updated_at: Date;
 }
 
+export interface TagfulTransaction extends Transaction {
+  tag?: string;
+}
+
 export type ListTransactions = Transaction[];
 
 export interface ListTaggedTransactionIds {

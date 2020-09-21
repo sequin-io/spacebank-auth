@@ -1,5 +1,10 @@
 import React, { useMemo } from "react";
-import { DateFilter, ListTransactions, Transaction } from "../types";
+import {
+  DateFilter,
+  TagfulTransaction,
+  ListTransactions,
+  Transaction,
+} from "../types";
 import usePrevious from "../usePrevious";
 import FishyEmoji from "./FishyEmoji";
 import Table from "./Table";
@@ -17,21 +22,39 @@ export default function TransactionsTable({
   onSelectRow,
   dateFilter,
 }: Props) {
-  const previousFishyIds = usePrevious(fishyIds) || [];
+  const tagfulTransactions: TagfulTransaction[] = useMemo(
+    () =>
+      data.map((v) => {
+        return {
+          ...v,
+          tag: fishyIds.find((id) => id === v.id) && "fishy",
+        };
+      }),
+    [data, fishyIds]
+  );
+
+  const previousTagfulTransactions =
+    usePrevious(tagfulTransactions) || tagfulTransactions;
 
   const memoizedColumns = useMemo(
     () => [
       {
         Header: "Is fishy?",
-        accessor: "id",
+        accessor: "tag",
         width: 64,
-        id: "is_fishy",
-        Formatted: ({ value }: any) => {
-          const currentState = fishyIds.find((id) => id === value);
-          const previousState = previousFishyIds.find((id) => id === value);
+        id: "tag",
+        Formatted: (cell: any) => {
+          const transactionId = cell.row.original.id;
 
-          if (currentState) {
-            return <FishyEmoji withOpenAnim={!previousState} />;
+          const previousState = previousTagfulTransactions.find(
+            (transaction) => transaction.id === transactionId
+          );
+
+          const previousIsFishy =
+            previousState && previousState.tag === "fishy";
+
+          if (cell.value === "fishy") {
+            return <FishyEmoji withOpenAnim={!previousIsFishy} />;
           }
 
           return <></>;
@@ -39,7 +62,7 @@ export default function TransactionsTable({
       },
       ...columns,
     ],
-    [fishyIds, previousFishyIds]
+    [previousTagfulTransactions]
   );
 
   const filteredData = useMemo(() => {
@@ -49,10 +72,10 @@ export default function TransactionsTable({
       maxDateDelta = (dateFilter === "last-week" ? 7 : 14) * 86400000;
     }
 
-    return data.filter(
+    return tagfulTransactions.filter(
       (x) => Date.now() - x.inserted_at.valueOf() < maxDateDelta
     );
-  }, [data, dateFilter]);
+  }, [tagfulTransactions, dateFilter]);
 
   return (
     <Table
