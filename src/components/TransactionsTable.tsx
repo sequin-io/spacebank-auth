@@ -80,6 +80,7 @@ export default function TransactionsTable({
   return (
     <Table
       data={filteredData}
+      autoReset={false}
       onSelectRow={onSelectRow}
       columns={memoizedColumns as any}
     />
