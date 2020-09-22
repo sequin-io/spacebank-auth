@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import {
   useTable,
   useFlexLayout,
@@ -17,9 +17,12 @@ import "./Table.css";
 import { FetchKey, useDecode, ShowDecodeError } from "@decode/client";
 import FetchingMask from "./FetchingMask";
 import { renderDate } from "../util";
+import usePrevious from "../usePrevious";
 
 interface Props<D extends object = {}> {
   data: D[];
+  dataHash?: any; // Used to determine if the table should reset
+  autoReset?: boolean;
   columns?: Array<Column<D>>;
   hiddenColumns?: string[];
   pageSize?: number;
@@ -33,6 +36,8 @@ export default function Table<D extends object = {}>({
   columns,
   hiddenColumns,
   data,
+  dataHash,
+  autoReset = true,
   loading,
   pageSize = 10,
   onSelectRow,
@@ -52,6 +57,16 @@ export default function Table<D extends object = {}>({
     []
   );
   let defaultColumns = useDefaultColumns(data);
+
+  // Used to determine if the table should reset
+  let memoizedDataHash = useMemo(() => dataHash, [dataHash]);
+  let previousDataHash = usePrevious(memoizedDataHash);
+
+  let shouldReset =
+    (autoReset &&
+      memoizedDataHash === undefined &&
+      previousDataHash === undefined) ||
+    memoizedDataHash !== previousDataHash;
 
   const {
     getTableProps,
@@ -74,6 +89,11 @@ export default function Table<D extends object = {}>({
       data,
       defaultColumn,
       autoResetSelectedRows: false,
+      autoResetPage: shouldReset,
+      autoResetExpanded: shouldReset,
+      autoResetGroupBy: shouldReset,
+      autoResetFilters: shouldReset,
+      autoResetRowState: shouldReset,
       initialState: {
         pageSize,
         hiddenColumns: hiddenColumns ?? [],
