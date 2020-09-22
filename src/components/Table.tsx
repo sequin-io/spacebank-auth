@@ -399,7 +399,7 @@ let PageJumpInput = ({
           }
         }}
         style={{
-          width: "24px",
+          width: 16.44 + 7.56 * state.toString().length,
           marginLeft: "4px",
           marginRight: "4px",
           fontSize: "12px",
