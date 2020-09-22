@@ -68,6 +68,15 @@ export default function Table<D extends object = {}>({
       previousDataHash === undefined) ||
     memoizedDataHash !== previousDataHash;
 
+  // Used to determine if the sorting should reset
+  let memoizedColumns = useMemo(() => columns ?? defaultColumns, [
+    columns,
+    defaultColumns,
+  ]);
+  let previousColumns = usePrevious(memoizedColumns);
+
+  let shouldResetSorting = memoizedColumns !== previousColumns;
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -92,6 +101,7 @@ export default function Table<D extends object = {}>({
       autoResetPage: shouldReset,
       autoResetExpanded: shouldReset,
       autoResetGroupBy: shouldReset,
+      autoResetSortBy: shouldResetSorting,
       autoResetFilters: shouldReset,
       autoResetRowState: shouldReset,
       initialState: {
