@@ -14,7 +14,7 @@ import { EllipsisOutlined } from "@ant-design/icons";
 import { Popover, Button } from "antd";
 
 import "./Table.css";
-import { FetchKey, useDecode, ShowDecodeError } from "@decode/client";
+import { FetchKey, useDecode, ErrorCard } from "@decode/client";
 import FetchingMask from "./FetchingMask";
 import { renderDate } from "../util";
 import usePrevious from "../usePrevious";
@@ -524,10 +524,16 @@ export function ConnectedTable<D>({ fetchKey, transform, ...rest }: CTProps) {
   let { data, error } = useDecode<D>(fetchKey, transform);
 
   if (error) {
-    return <ShowDecodeError error={error} />;
+    return <ErrorCard error={error} />;
   }
 
-  return <Table loading={!data} data={(data ?? []) as any} {...rest} />;
+  return (
+    <Table
+      loading={rest.loading || !data}
+      data={(data ?? []) as any}
+      {...rest}
+    />
+  );
 }
 
 let useDefaultColumns = <D extends object = {}>(
