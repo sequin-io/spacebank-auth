@@ -80,7 +80,7 @@ export default function TransactionsTable({
   return (
     <Table
       data={filteredData}
-      autoReset={false}
+      dataHash={filteredData.length}
       onSelectRow={onSelectRow}
       columns={memoizedColumns as any}
     />
