@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 
-import "./FetchingMask.css";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 

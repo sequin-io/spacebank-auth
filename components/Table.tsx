@@ -13,11 +13,10 @@ import {
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Popover, Button } from "antd";
 
-import "./Table.css";
 import { FetchKey, useDecode, ErrorCard } from "@decode/client";
 import FetchingMask from "./FetchingMask";
-import { renderDate } from "../util";
-import usePrevious from "../usePrevious";
+import { renderDate } from "../util/util";
+import usePrevious from "../util/usePrevious";
 
 interface Props<D extends object = {}> {
   data: D[];
@@ -94,7 +93,7 @@ export default function Table<D extends object = {}>({
     state: { pageIndex },
   } = useTable(
     {
-      columns: columns ?? defaultColumns,
+      columns: columns ?? (defaultColumns as any),
       data,
       defaultColumn,
       autoResetSelectedRows: false,

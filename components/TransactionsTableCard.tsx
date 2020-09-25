@@ -5,8 +5,6 @@ import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { DateFilter } from "../types";
 
-import "./TransactionsTableCard.css";
-
 const { Option } = Select;
 const antIcon = <LoadingOutlined style={{ fontSize: 18 }} spin />;
 

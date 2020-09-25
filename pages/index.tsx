@@ -1,19 +1,18 @@
 import React, { useState, useMemo } from "react";
 import { Tag } from "antd";
 
-import usePrevious from "./usePrevious";
-import useDebounce from "./useDebounce";
-import FishyEmoji from "./components/FishyEmoji";
-import Layout from "./components/Layout";
-import SearchInput from "./components/SearchInput";
-import TransactionsTableCard from "./components/TransactionsTableCard";
+import usePrevious from "../util/usePrevious";
+import useDebounce from "../util/useDebounce";
+import FishyEmoji from "../components/FishyEmoji";
+import Layout from "../components/Layout";
+import SearchInput from "../components/SearchInput";
+import TransactionsTableCard from "../components/TransactionsTableCard";
 
-import { ListTaggedTransactionIds, DateFilter } from "./types";
-import "./App.css";
+import { ListTaggedTransactionIds } from "../types";
 
 import { useDecode } from "@decode/client";
-import useRequest from "./useRequest";
-import { ConnectedTable } from "./components/Table";
+import useRequest from "../util/useRequest";
+import { ConnectedTable } from "../components/Table";
 
 export default function App() {
   let [dateFilter, setDateFilter] = useState("all");
@@ -64,7 +63,7 @@ export default function App() {
   ]);
 
   return (
-    <Layout className="transactions" title="Transactions">
+    <Layout className={"transactions"} title="Transactions">
       <p>
         We'll use this app to mark suspicious transactions as
         <Tag color="warning" className="transactions-tag">
@@ -73,7 +72,7 @@ export default function App() {
       </p>
       <SearchInput value={search} onChange={setSearch} />
       <TransactionsTableCard
-        processing={false}
+        processing={isProcessing}
         disableButtons={!selectedTransactionId}
         onFishyClick={markAsFishy}
         onClearClick={markNotFishy}

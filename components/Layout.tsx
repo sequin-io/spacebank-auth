@@ -2,8 +2,6 @@ import { Card } from "antd";
 import React from "react";
 import Header from "./Header";
 
-import "./Layout.css";
-
 interface Props {
   title?: string;
   className?: string;
