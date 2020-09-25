@@ -35,7 +35,7 @@ export default function TransactionsTableCard({
     <Card
       size="small"
       bodyStyle={{ padding: "1px" }}
-      className="transactions-table-card"
+      className="table"
       title={
         <Row>
           <Col flex="auto">Results</Col>
@@ -44,8 +44,9 @@ export default function TransactionsTableCard({
               <Select
                 value={dateFilter}
                 onChange={handleSelectChange}
-                className="transactions-table-card-select"
+                className="select"
                 size="small"
+                style={{ width: "140px" }}
               >
                 <Option value="all">All</Option>
                 <Option value="last-week">Last 7 days</Option>
@@ -76,6 +77,11 @@ export default function TransactionsTableCard({
       }
     >
       {children}
+      <style jsx>{`
+        .table {
+          margin-top: 8px;
+        }
+      `}</style>
     </Card>
   );
 }

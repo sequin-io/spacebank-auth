@@ -24,38 +24,8 @@ export default function App() {
   let [selectedTransactionId, setSelectedTransactionId] = useState<string>();
 
   // Retrieve transactions tagged Fishy from api using Decode
-  let { data, mutate } = useDecode<ListTaggedTransactionIds>([
-    "listTaggedTransactionIds",
-    { name: "fishy" },
-  ]);
-  let fishyIds = data?.ids || [];
-
-  // Used for one-time requests using Decode
-  let { request, isProcessing } = useRequest();
-
-  // Marks a transaction as fishy
-  let markAsFishy = async () => {
-    await request([
-      "tagTransaction",
-      {
-        transactionId: selectedTransactionId,
-        body: { name: "fishy" },
-      },
-    ]);
-    await mutate();
-  };
-
-  // Remove the fishy tag from a transaction
-  let markNotFishy = async () => {
-    await request([
-      "untagTransaction",
-      {
-        transactionId: selectedTransactionId,
-        name: "fishy",
-      },
-    ]);
-    await mutate();
-  };
+  // TODO: let { data, mutate } = useDecode<ListTaggedTransactionIds>([])
+  let fishyIds: string[] = [];
 
   let fishyColumn = useIsFishyColumn(fishyIds);
   let memoizedColumns = useMemo(() => [fishyColumn, ...columns], [
@@ -63,7 +33,7 @@ export default function App() {
   ]);
 
   return (
-    <Layout className={"transactions"} title="Transactions">
+    <Layout className="transactions" title="Transactions">
       <p>
         We'll use this app to mark suspicious transactions as
         <Tag color="warning" className="transactions-tag">
@@ -72,23 +42,15 @@ export default function App() {
       </p>
       <SearchInput value={search} onChange={setSearch} />
       <TransactionsTableCard
-        processing={isProcessing}
+        processing={false}
         disableButtons={!selectedTransactionId}
-        onFishyClick={markAsFishy}
-        onClearClick={markNotFishy}
+        onFishyClick={() => {}}
+        onClearClick={() => {}}
         onDateFilterChange={setDateFilter}
       >
-        <ConnectedTable
-          fetchKey={[
-            "listTransactions",
-            {
-              description: `%${debouncedSearch}%`,
-              after: dateFromDateFilter(dateFilter),
-            },
-          ]}
-          columns={memoizedColumns}
-          onSelectRow={(row: any) => setSelectedTransactionId(row.id)}
-        />
+        <div className="table-placeholder">
+          <span>Table will go here</span>
+        </div>
       </TransactionsTableCard>
     </Layout>
   );
