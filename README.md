@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Initial version
+
+The initial version used in the on-boarding walkthrough is on the branch `initial`: https://gitlab.com/usedecode/partner-apps/spacebank-client/-/tree/initial
+
 ## Getting Started
 
 First, run the development server:

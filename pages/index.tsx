@@ -10,9 +10,7 @@ import TransactionsTableCard from "../components/TransactionsTableCard";
 
 import { ListTaggedTransactionIds } from "../types";
 
-import { useDecode } from "@decode/client";
-import useRequest from "../util/useRequest";
-import { ConnectedTable } from "../components/Table";
+import { useDecode, useRequest, ConnectedTable } from "@decode/client";
 
 export default function App() {
   let [dateFilter, setDateFilter] = useState("all");
