@@ -46,9 +46,11 @@ export default function App() {
         onClearClick={() => {}}
         onDateFilterChange={setDateFilter}
       >
+        {/* === ⬇ REPLACE === with <ConnectedTable ... /> */}
         <div className="table-placeholder">
           <span>Table will go here</span>
         </div>
+        {/* === ⬆ REPLACE === */}
       </TransactionsTableCard>
     </Layout>
   );
