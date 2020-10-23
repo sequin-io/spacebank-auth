@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Tag } from "antd";
 
 import usePrevious from "../util/usePrevious";
@@ -8,9 +8,8 @@ import Layout from "../components/Layout";
 import SearchInput from "../components/SearchInput";
 import TransactionsTableCard from "../components/TransactionsTableCard";
 
-import { ListTaggedTransactionIds } from "../types";
-
-import { useDecode, useRequest, ConnectedTable } from "@decode/client";
+import { Table } from "@decode/client";
+import { api } from "../lib/api";
 
 export default function App() {
   let [dateFilter, setDateFilter] = useState("all");
@@ -21,9 +20,39 @@ export default function App() {
   // Stores the current selected row of the table
   let [selectedTransactionId, setSelectedTransactionId] = useState<string>();
 
-  // Retrieve transactions tagged Fishy from api using Decode
-  // TODO: let { data, mutate } = useDecode<ListTaggedTransactionIds>([])
-  let fishyIds: string[] = [];
+  let [transactions, setTransactions] = useState([]);
+  let [fishyIds, setFishyIds] = useState([]);
+
+  // Get transactions  from api using Decode Auth
+  let updateTransactions = async () => {
+    setTransactions(await api.getTransactions());
+  };
+
+  // Get transactions tagged Fishy from api using Decode Auth
+  let updateFishyIds = async () => {
+    setFishyIds(await api.getFishyTransactions());
+  };
+
+  let updateTable = () => {
+    updateTransactions();
+    updateFishyIds();
+  };
+
+  useEffect(() => {
+    updateTable();
+  }, [debouncedSearch]);
+
+  // Marks a transaction as fishy
+  let markAsFishy = async () => {
+    await api.tagTransaction(selectedTransactionId);
+    updateTable();
+  };
+
+  // Remove the fishy tag from a transaction
+  let markNotFishy = async () => {
+    await api.untagTransaction(selectedTransactionId);
+    updateTable();
+  };
 
   let fishyColumn = useIsFishyColumn(fishyIds);
   let memoizedColumns = useMemo(() => [fishyColumn, ...columns], [
@@ -42,15 +71,16 @@ export default function App() {
       <TransactionsTableCard
         processing={false}
         disableButtons={!selectedTransactionId}
-        onFishyClick={() => {}}
-        onClearClick={() => {}}
+        onFishyClick={markAsFishy}
+        onClearClick={markNotFishy}
         onDateFilterChange={setDateFilter}
       >
-        {/* === ⬇ REPLACE === with <ConnectedTable ... /> */}
-        <div className="table-placeholder">
-          <span>Table will go here</span>
-        </div>
-        {/* === ⬆ REPLACE === */}
+        <Table
+          data={transactions}
+          columns={memoizedColumns}
+          dataHash={transactions.length}
+          onSelectRow={(row: any) => setSelectedTransactionId(row.id)}
+        />
       </TransactionsTableCard>
     </Layout>
   );

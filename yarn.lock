@@ -1061,10 +1061,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@decode/client@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@decode/client/-/client-0.2.6.tgz#3546996617e57fc018f42c670c04e41b404a8762"
-  integrity sha512-KnPrTDGQkNa8CmS7RXjLdb79j7Snnv85JKHOZHgnKz1BgT/0kB00pRHVHIFwiOU+7QKsH6IMtta5qblLsO4Kng==
+"@decode/client@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@decode/client/-/client-0.3.0.tgz#7ecad2cf5fdf794e34911ec59de9a2dcb68561bf"
+  integrity sha512-0xN1VMj7fyoFypgLCjfQEs9kx/80AvVbRRDfupXW+HkR5DqFKM7E4NDVlICq9EgDTmuAhbnXdu6QG1wLGOoCrg==
   dependencies:
     date-fns "^2.16.1"
     jshashes h2non/jshashes
@@ -3181,7 +3181,7 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
-"jshashes@github:h2non/jshashes":
+jshashes@h2non/jshashes:
   version "1.0.8"
   resolved "https://codeload.github.com/h2non/jshashes/tar.gz/a8623de2cdda9bd795a537dc09d5695901b97609"
 

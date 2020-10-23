@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@decode/client": "^0.2.6",
+    "@decode/client": "^0.3.0",
     "antd": "^4.5.0",
     "date-fns": "^2.16.1",
     "next": "9.5.3",

@@ -4,12 +4,14 @@ import "../styles/Header.css";
 import "../styles/Layout.css";
 import "../styles/FishyEmoji.css";
 
-import { DecodeProvider } from "@decode/client";
+import { AuthProvider } from "@decode/client";
 
 // prettier-ignore
 function MyApp({ Component, pageProps }) {
   return (
-    <Component {...pageProps} />
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
   );
 }
 
