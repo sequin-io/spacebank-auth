@@ -1061,10 +1061,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@decode/client@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@decode/client/-/client-0.3.0.tgz#7ecad2cf5fdf794e34911ec59de9a2dcb68561bf"
-  integrity sha512-0xN1VMj7fyoFypgLCjfQEs9kx/80AvVbRRDfupXW+HkR5DqFKM7E4NDVlICq9EgDTmuAhbnXdu6QG1wLGOoCrg==
+"@decode/client@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@decode/client/-/client-0.3.2.tgz#272a6fb1f50db557e0c44122255eb0ab63988558"
+  integrity sha512-j+l4c/QGe56aO8wdxjurZehF9TwhGto/hI5RUCJGw0AfsRpfGiKo5LXGUXt96VSEKkY8sBQD3m3DbORVJ5wiVA==
   dependencies:
     date-fns "^2.16.1"
     jshashes h2non/jshashes
